@@ -1,4 +1,4 @@
-package project.demo.service;
+package project.demo.model.service;
 
 import android.util.Xml;
 
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 
-import project.demo.data.Item;
+import project.demo.model.Item;
 
 
 /**

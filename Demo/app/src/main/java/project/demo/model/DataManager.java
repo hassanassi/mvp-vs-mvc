@@ -1,12 +1,12 @@
-package project.demo.data;
+package project.demo.model;
 
 import android.content.Context;
 import android.content.Intent;
 
 import java.util.ArrayList;
 
-import project.demo.service.SyncReceiver;
-import project.demo.service.SyncService;
+import project.demo.model.service.SyncReceiver;
+import project.demo.model.service.SyncService;
 
 
 /**

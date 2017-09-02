@@ -1,9 +1,10 @@
-package project.demo.mvp;
+package project.demo.presenter;
 
 import java.util.ArrayList;
 
-import project.demo.data.DataManager;
-import project.demo.data.Item;
+import project.demo.model.DataManager;
+import project.demo.model.Item;
+import project.demo.view.MainView;
 
 /**
  * Created by hassan on 8/31/2017.

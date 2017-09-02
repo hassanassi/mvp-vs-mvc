@@ -1,4 +1,4 @@
-package project.demo.mvp;
+package project.demo.presenter;
 
 /**
  * Created by hassan on 8/31/2017.

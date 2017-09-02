@@ -1,4 +1,4 @@
-package project.demo.service;
+package project.demo.model.service;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
 
 import project.demo.App;
-import project.demo.data.Item;
+import project.demo.model.Item;
 
 
 /**
