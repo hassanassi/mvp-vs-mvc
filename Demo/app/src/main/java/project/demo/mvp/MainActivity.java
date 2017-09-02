@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void loadData(ArrayList<Item> list) {
+    public void setItems(ArrayList<Item> list) {
         adapter=new Adapter(list,null);
         recyclerView.setAdapter(adapter);
     }

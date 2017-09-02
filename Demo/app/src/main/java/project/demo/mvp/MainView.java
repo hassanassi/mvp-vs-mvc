@@ -12,6 +12,6 @@ public interface MainView {
 
     public void showProgress();
     public void hideProgress();
-    public void loadData(ArrayList<Item> list);
+    public void setItems(ArrayList<Item> list);
     public void displayMsgError(String error);
 }

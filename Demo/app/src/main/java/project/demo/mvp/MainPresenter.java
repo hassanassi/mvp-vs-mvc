@@ -44,7 +44,7 @@ public class MainPresenter implements Presenter,DataManager.Actions {
         //if no error
         if(error==null){
             mainView.hideProgress();
-            mainView.loadData(itemList);
+            mainView.setItems(itemList);
         }else{
             mainView.displayMsgError("something went wrong");
         }
