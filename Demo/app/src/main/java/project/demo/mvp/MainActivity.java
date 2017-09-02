@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     protected void onResume() {
         super.onResume();
-
         presenter.onResume();
     }
 
