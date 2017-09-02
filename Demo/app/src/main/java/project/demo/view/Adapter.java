@@ -1,4 +1,4 @@
-package project.demo.mvp;
+package project.demo.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,8 +12,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import project.demo.R;
-import project.demo.data.Item;
-import project.demo.util.UnitConverter;
+import project.demo.model.Item;
+import project.demo.view.util.UnitConverter;
 
 
 /**

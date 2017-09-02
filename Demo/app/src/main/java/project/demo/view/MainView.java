@@ -1,8 +1,8 @@
-package project.demo.mvp;
+package project.demo.view;
 
 import java.util.ArrayList;
 
-import project.demo.data.Item;
+import project.demo.model.Item;
 
 /**
  * Created by hassan on 8/31/2017.

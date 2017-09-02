@@ -1,4 +1,4 @@
-package project.demo.util;
+package project.demo.view.util;
 
 import android.content.res.Resources;
 import android.util.TypedValue;

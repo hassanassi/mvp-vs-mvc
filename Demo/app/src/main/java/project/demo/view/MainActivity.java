@@ -1,4 +1,4 @@
-package project.demo.mvp;
+package project.demo.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +11,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import project.demo.R;
-import project.demo.data.DataManager;
-import project.demo.data.Item;
+import project.demo.model.DataManager;
+import project.demo.model.Item;
+import project.demo.presenter.MainPresenter;
+import project.demo.presenter.Presenter;
 
 
 public class MainActivity extends AppCompatActivity implements MainView {

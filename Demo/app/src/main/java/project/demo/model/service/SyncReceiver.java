@@ -1,4 +1,4 @@
-package project.demo.service;
+package project.demo.model.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
