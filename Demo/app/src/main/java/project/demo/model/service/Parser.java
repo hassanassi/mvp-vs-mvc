@@ -18,8 +18,6 @@ import project.demo.model.Item;
 
 public class Parser {
 
-
-
     /**
      *
      * @param response

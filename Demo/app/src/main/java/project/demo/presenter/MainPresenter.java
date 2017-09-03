@@ -16,15 +16,13 @@ public class MainPresenter implements Presenter,DataManager.Actions {
     MainView mainView;
     DataManager model;
 
-    public  MainPresenter(MainView mainView){
+    public  MainPresenter(MainView mainView, DataManager model){
         this.mainView=mainView;
-        setModel(new DataManager());
+        this.model=model;
     }
 
 
-    public void setModel(DataManager dataManager){
-        this.model=dataManager;
-    }
+
 
     @Override
     public void onPause() {model.onPause();}
@@ -54,6 +52,6 @@ public class MainPresenter implements Presenter,DataManager.Actions {
 
     @Override
     public void onError() {
-        mainView.displayMsgError("something went wrong");
+        mainView.displayMsgError();
     }
 }

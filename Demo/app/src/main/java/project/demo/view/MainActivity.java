@@ -1,5 +1,6 @@
 package project.demo.view;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +18,7 @@ import project.demo.presenter.MainPresenter;
 import project.demo.presenter.Presenter;
 
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends Activity implements MainView {
 
     RecyclerView recyclerView;
     ProgressBar progressBar;
@@ -38,10 +39,14 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
 
         //initialize presenter
-        presenter=new MainPresenter(this);
+        setPresenter(new MainPresenter(this,new DataManager()));
 
         progressBar= (ProgressBar) findViewById(R.id.progressBar);
 
+    }
+
+    public void setPresenter(Presenter presenter){
+        this.presenter=presenter;
     }
 
     @Override
@@ -81,8 +86,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void displayMsgError(String error) {
-        Toast.makeText(this,error,Toast.LENGTH_LONG).show();
+    public void displayMsgError() {
+        Toast.makeText(this,R.string.error,Toast.LENGTH_LONG).show();
     }
 
 

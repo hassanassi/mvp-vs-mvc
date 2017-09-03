@@ -44,7 +44,7 @@ public class MainPresenterTest {
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        presenter=new MainPresenter(mainView);
+        presenter=new MainPresenter(mainView,model);
     }
 
 
@@ -68,7 +68,7 @@ public class MainPresenterTest {
     public void testDisplayErrorCalled(){
         presenter.onError();
 
-        verify(mainView).displayMsgError("something went wrong");
+        verify(mainView).displayMsgError();
     }
 
 
