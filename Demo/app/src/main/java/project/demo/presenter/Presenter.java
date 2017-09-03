@@ -9,5 +9,4 @@ public interface Presenter {
     public void onPause();
     public void onResume();
     public void onDestroy();
-    public void onItemClicked();
 }

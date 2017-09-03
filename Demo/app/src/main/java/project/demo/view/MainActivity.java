@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
 
         //initialize presenter
-        presenter=new MainPresenter(this,new DataManager());
+        presenter=new MainPresenter(this);
 
         progressBar= (ProgressBar) findViewById(R.id.progressBar);
 
