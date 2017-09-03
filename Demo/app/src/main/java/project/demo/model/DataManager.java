@@ -16,7 +16,8 @@ import project.demo.model.service.SyncService;
 public class DataManager implements SyncReceiver.onReceive {
 
     public interface Actions{
-        void onFinish(ArrayList<Item> itemList, String error);
+        void onFinish(ArrayList<Item> itemList);
+        void onError();
     }
 
     SyncReceiver syncReceiver;
@@ -36,12 +37,12 @@ public class DataManager implements SyncReceiver.onReceive {
         String error=intent.getStringExtra("error");
 
         if(error!=null){
-            actions.onFinish(null,error);
+            actions.onError();
             return;
         }
 
         this.itemList= (ArrayList<Item>) intent.getSerializableExtra("itemList");
-        actions.onFinish(itemList,error);
+        actions.onFinish(itemList);
     }
 
     public void onPause(){
@@ -50,7 +51,9 @@ public class DataManager implements SyncReceiver.onReceive {
         }
     }
 
-    public boolean isLoaded(){return this.itemList!=null;}
+    public boolean isLoaded(){
+        return this.itemList!=null;
+    }
 
     public ArrayList<Item> getItemList(){return this.itemList;}
 }

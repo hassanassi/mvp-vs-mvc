@@ -1,5 +1,7 @@
 package project.demo.presenter;
 
+import android.provider.ContactsContract;
+
 import java.util.ArrayList;
 
 import project.demo.model.DataManager;
@@ -14,9 +16,14 @@ public class MainPresenter implements Presenter,DataManager.Actions {
     MainView mainView;
     DataManager model;
 
-    public  MainPresenter(MainView mainView,DataManager model){
+    public  MainPresenter(MainView mainView){
         this.mainView=mainView;
-        this.model=model;
+        setModel(new DataManager());
+    }
+
+
+    public void setModel(DataManager dataManager){
+        this.model=dataManager;
     }
 
     @Override
@@ -25,7 +32,7 @@ public class MainPresenter implements Presenter,DataManager.Actions {
     @Override
     public void onResume() {
         if(model.isLoaded()){
-            onFinish(model.getItemList(),null);
+            onFinish(model.getItemList());
         }else{
             mainView.showProgress();
             model.loadData(this);
@@ -37,17 +44,16 @@ public class MainPresenter implements Presenter,DataManager.Actions {
         mainView=null;
     }
 
-    @Override
-    public void onItemClicked() {}
 
     @Override
-    public void onFinish(ArrayList<Item> itemList, String error) {
+    public void onFinish(ArrayList<Item> itemList) {
         //if no error
-        if(error==null){
-            mainView.hideProgress();
-            mainView.setItems(itemList);
-        }else{
-            mainView.displayMsgError("something went wrong");
-        }
+        mainView.hideProgress();
+        mainView.setItems(itemList);
+    }
+
+    @Override
+    public void onError() {
+        mainView.displayMsgError("something went wrong");
     }
 }
