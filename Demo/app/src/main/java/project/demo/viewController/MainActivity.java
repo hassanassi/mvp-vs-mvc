@@ -34,23 +34,28 @@ public class MainActivity extends AppCompatActivity implements DataManager.Actio
         setContentView(R.layout.activity_main);
 
         //initialize recycleview
-        recyclerView= (RecyclerView) findViewById(R.id.recycleView);
+        recyclerView = (RecyclerView) findViewById(R.id.recycleView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
 
 
         //initialize model
-        this.dataManager=new DataManager();
+        this.dataManager = new DataManager();
 
-        progressBar= (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.dataManager.loadData(this);
-        showProgress();
+
+        if (dataManager.isLoaded()) {
+            onFinish(dataManager.getItemList());
+        } else {
+            this.dataManager.loadData(this);
+            showProgress();
+        }
     }
 
     @Override
@@ -77,24 +82,25 @@ public class MainActivity extends AppCompatActivity implements DataManager.Actio
 
 
     public void setItems(ArrayList<Item> list) {
-        adapter=new Adapter(list,null);
+        adapter = new Adapter(list, null);
         recyclerView.setAdapter(adapter);
     }
 
 
     public void displayMsgError(String error) {
-        Toast.makeText(this,error,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 
 
     @Override
-    public void onFinish(ArrayList<Item> itemList, String error) {
-        //if no error
-        if(error==null){
-            hideProgress();
-            setItems(itemList);
-        }else{
-            displayMsgError("something went wrong");
-        }
+    public void onFinish(ArrayList<Item> itemList) {
+        hideProgress();
+        setItems(itemList);
+    }
+
+
+    @Override
+    public void onError() {
+        displayMsgError("something went wrong");
     }
 }
