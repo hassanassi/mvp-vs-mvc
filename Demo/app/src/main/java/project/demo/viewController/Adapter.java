@@ -26,7 +26,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         void onItemClick(View view, int position);
     }
     //just as an example
-    private int dpSize= (int) UnitConverter.dpToPx(100);
+    private int dpSize= (int) UnitConverter.dpToPx(130);
 
     ArrayList<Item> itemList;
     ClickListener clickListener;

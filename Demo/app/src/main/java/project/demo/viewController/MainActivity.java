@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity implements DataManager.Actio
     }
 
 
-    public void displayMsgError(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+    public void displayMsgError() {
+        Toast.makeText(this, R.string.error, Toast.LENGTH_LONG).show();
     }
 
 
@@ -101,6 +101,6 @@ public class MainActivity extends AppCompatActivity implements DataManager.Actio
 
     @Override
     public void onError() {
-        displayMsgError("something went wrong");
+        displayMsgError();
     }
 }
