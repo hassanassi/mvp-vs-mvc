@@ -30,11 +30,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-/**
- * Instrumentation test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
+
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class,packageName = "project.demo",sdk = 21)
 public class MainActivityTest {
