@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Demo</string>
 
-    <string name="error">something went wrong</string>
+    <string name="error">check internet connection</string>
 </resources>
