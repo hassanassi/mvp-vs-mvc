@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
+import java.util.ArrayList;
+
 import project.demo.App;
+import project.demo.model.Item;
 
 
 /**
@@ -38,8 +41,16 @@ public class SyncReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (onReceive != null)
-            onReceive.onReceive(context, intent);
+        if (onReceive != null) {
+            String error=intent.getStringExtra("error");
+
+            if(error!=null){
+                onReceive.onReceive(null);
+            }else{
+                onReceive.onReceive((ArrayList<Item>) intent.getSerializableExtra("itemList"));
+            }
+
+        }
 
         if (registered)
             unregister();
@@ -74,6 +85,6 @@ public class SyncReceiver extends BroadcastReceiver {
     // Inner Classes
     // ========================================================================
     public interface onReceive {
-        void onReceive(Context context, Intent intent);
+        void onReceive(ArrayList<Item> itemList);
     }
 }

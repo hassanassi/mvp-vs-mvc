@@ -67,7 +67,10 @@ public class SyncService extends IntentService {
                 sendData(null);
             }
         });
+
         queue.add(stringRequest);
+
+
     }
 
 

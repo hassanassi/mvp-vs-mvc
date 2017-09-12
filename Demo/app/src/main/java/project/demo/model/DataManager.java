@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import project.demo.model.service.SyncReceiver;
 import project.demo.model.service.SyncService;
@@ -16,7 +17,7 @@ import project.demo.model.service.SyncService;
 public class DataManager implements SyncReceiver.onReceive {
 
     public interface Actions{
-        void onFinish(ArrayList<Item> itemList);
+        void onFinish(List<Item> itemList);
         void onError();
     }
 
@@ -25,23 +26,26 @@ public class DataManager implements SyncReceiver.onReceive {
 
     ArrayList<Item> itemList;
 
-    public void loadData(Actions actions){
+
+    public DataManager(Actions actions){
+        this.actions=actions;
+    }
+
+    public void loadData(){
+        this.itemList=null;
         syncReceiver=new SyncReceiver("test",this);
         syncReceiver.register();
-        this.actions=actions;
         SyncService.startService();
     }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
-        String error=intent.getStringExtra("error");
-
-        if(error!=null){
+    public void onReceive(ArrayList<Item> itemList) {
+        if(itemList==null){
             actions.onError();
             return;
         }
 
-        this.itemList= (ArrayList<Item>) intent.getSerializableExtra("itemList");
+        this.itemList= itemList;
         actions.onFinish(itemList);
     }
 

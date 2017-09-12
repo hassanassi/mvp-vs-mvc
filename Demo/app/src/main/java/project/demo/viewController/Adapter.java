@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import project.demo.R;
 import project.demo.model.Item;
@@ -28,10 +29,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     //just as an example
     private int dpSize= (int) UnitConverter.dpToPx(130);
 
-    ArrayList<Item> itemList;
+    List<Item> itemList;
     ClickListener clickListener;
 
-    public Adapter(ArrayList<Item> newsList, ClickListener clickListener){
+    public Adapter(List<Item> newsList, ClickListener clickListener){
         this.itemList=newsList;
         this.clickListener=clickListener;
     }
@@ -50,13 +51,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.textView.setText(itemList.get(position).getTitle());
+        Item item=itemList.get(position);
 
+        holder.title.setText("");
+        holder.description.setText(item.getDescription());
 
         //load image from url using picasso library
         Picasso.with(holder.imageView.getContext())
                 .load(itemList.get(position).getImageUrl())
-        .placeholder(R.drawable.placeholder).resize(dpSize,dpSize).centerInside().into(holder.imageView);
+        .placeholder(R.drawable.placeholder).fit().centerCrop().into(holder.imageView);
     }
 
     @Override
@@ -67,11 +70,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView imageView;
-        public TextView textView;
+        public TextView title;
+        public TextView description;
         public MyViewHolder(View itemView) {
             super(itemView);
-            this.textView= (TextView) itemView.findViewById(R.id.title);
+            this.title = (TextView) itemView.findViewById(R.id.title);
             this.imageView=(ImageView)itemView.findViewById(R.id.imageView);
+            this.description= (TextView) itemView.findViewById(R.id.description);
         }
     }
 }

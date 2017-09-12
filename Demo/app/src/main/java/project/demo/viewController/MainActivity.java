@@ -1,14 +1,16 @@
 package project.demo.viewController;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import project.demo.R;
 import project.demo.model.DataManager;
@@ -20,18 +22,28 @@ import project.demo.model.Item;
  */
 public class MainActivity extends AppCompatActivity implements DataManager.Actions {
 
-    RecyclerView recyclerView;
-    ProgressBar progressBar;
 
+
+    //view in mvc
+    Toast toastMsg;
+    RecyclerView recyclerView;
+    SwipeRefreshLayout refreshLayout;
     Adapter adapter;
 
 
+    //model in mvc
     DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Adding Toolbar to MainActivity
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitle("Demo");
+        setSupportActionBar(toolbar);
 
         //initialize recycleview
         recyclerView = (RecyclerView) findViewById(R.id.recycleView);
@@ -40,9 +52,17 @@ public class MainActivity extends AppCompatActivity implements DataManager.Actio
 
 
         //initialize model
-        this.dataManager = new DataManager();
+        this.dataManager = new DataManager(this);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //reload data on refresh
+                loadData();
+            }
+        });
 
     }
 
@@ -53,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements DataManager.Actio
         if (dataManager.isLoaded()) {
             onFinish(dataManager.getItemList());
         } else {
-            this.dataManager.loadData(this);
-            showProgress();
+            loadData();
         }
     }
 
@@ -70,30 +89,32 @@ public class MainActivity extends AppCompatActivity implements DataManager.Actio
     }
 
     public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
+        refreshLayout.setRefreshing(true);
         recyclerView.setVisibility(View.GONE);
     }
 
 
     public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
+        refreshLayout.setRefreshing(false);
         recyclerView.setVisibility(View.VISIBLE);
     }
 
 
-    public void setItems(ArrayList<Item> list) {
+    public void setItems(List<Item> list) {
         adapter = new Adapter(list, null);
         recyclerView.setAdapter(adapter);
     }
 
 
+
     public void displayMsgError() {
-        Toast.makeText(this, R.string.error, Toast.LENGTH_LONG).show();
+        refreshLayout.setRefreshing(false);
+        showToast();
     }
 
 
     @Override
-    public void onFinish(ArrayList<Item> itemList) {
+    public void onFinish(List<Item> itemList) {
         hideProgress();
         setItems(itemList);
     }
@@ -102,5 +123,19 @@ public class MainActivity extends AppCompatActivity implements DataManager.Actio
     @Override
     public void onError() {
         displayMsgError();
+    }
+
+
+    private void loadData(){
+        showProgress();
+        dataManager.loadData();
+    }
+
+    private void showToast(){
+        if(toastMsg !=null)
+            toastMsg.cancel();
+
+        toastMsg =Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT);
+        toastMsg.show();
     }
 }
